@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Cart.destroy_all
+
+testuser = User.create!(username: "test1user", password_digest:BCrypt::Password.create('password'), email: "hi@yahoo.com", name: "steven")
+testuser2 = User.create!(username: "test2user", password_digest:BCrypt::Password.create('password'), email: "hi2@yahoo.com", name: "steven2")
+
+cart1 = Cart.create!(name: "testcart", quantity: 2, total_price: 15, ordered: false, user: testuser)
+cart2 = Cart.create!(name: "testcart2", quantity: 1, total_price: 5, ordered: false, user: testuser2)
