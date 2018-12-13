@@ -4,7 +4,10 @@ class AuthController < ApplicationController
     user = User.find_by(username: auth_params[:username])
     # byebug
     if user && user.authenticate(auth_params[:password])
-      render json: {user_id: user.id, username: user.username}
+      # render json: {user_id: user.id, username: user.username}
+      # issue_token({user_id: user.id})
+      token = JWT.encode({user_id: user.id}, 'SECRET')
+      render json: {user: user, jwt: token}
     else
       render json: {message: "Wrong Password"}, status: 400
     end
@@ -12,8 +15,11 @@ class AuthController < ApplicationController
   end
 
   def show
-    token = request.authorization.to_i
-    @user = User.find(token)
+    string = request.authorization
+    token = JWT.decode(string, 'SECRET')[0]
+    # token = request.authorization.to_i
+    id = token["user_id"].to_i
+    @user = User.find(id)
     if @user
       render json: { user_id: @user.id, username: @user.username}
     else
