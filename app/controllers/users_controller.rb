@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
 
   def create
-    # byebug
     @user = User.create(user_params)
+    # byebug
     # exclamtion point so it gives us the user back that was just created
      # and an error message if there is one
-     
+
+     byebug
     if @user.valid?
-      render json: {id: @user.id, username: @user.username, type: @user.type}
+      token = JWT.encode({user_id: @user.id}, 'SECRET')
+      render json: {id: @user.id, username: @user.username, type: @user.type, jwt: token}
     else
       render json: { error: "does not work" }, status: 422
     end

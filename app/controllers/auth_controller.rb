@@ -1,13 +1,16 @@
 class AuthController < ApplicationController
 
+  # skip_before_action :authorized, only: [:create]
+
+
   def create
-    user = User.find_by(username: auth_params[:username])
     # byebug
+    user = User.find_by(username: auth_params[:username])
     if user && user.authenticate(auth_params[:password])
       # render json: {user_id: user.id, username: user.username}
       # issue_token({user_id: user.id})
       token = JWT.encode({user_id: user.id}, 'SECRET')
-      render json: {user: user, jwt: token}
+      render json: {user: user.username, user:user.id, jwt: token}
     else
       render json: {message: "Wrong Password"}, status: 400
     end
@@ -16,8 +19,8 @@ class AuthController < ApplicationController
 
   def show
     string = request.authorization
+    # byebug
     token = JWT.decode(string, 'SECRET')[0]
-    # token = request.authorization.to_i
     id = token["user_id"].to_i
     @user = User.find(id)
     if @user
