@@ -24,7 +24,7 @@ class AuthController < ApplicationController
     id = token["user_id"].to_i
     @user = User.find(id)
     if @user
-      render json: { user_id: @user.id, username: @user.username}
+      render json: { user_id: @user.id, username: @user.username, type: @user.type}
     else
       render json: { error: "User not found" }, status: 422
   end
