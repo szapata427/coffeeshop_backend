@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2018_12_11_190750) do
 
   create_table "carts", force: :cascade do |t|
     t.string "name"
-    t.integer "quantity"
-    t.decimal "total_price"
+    t.string "quantity"
+    t.string "total_price"
     t.boolean "ordered", default: false
     t.bigint "user_id"
     t.bigint "product_id"
@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(version: 2018_12_11_190750) do
     t.string "name"
     t.string "title"
     t.string "description"
-    t.decimal "price"
-    t.integer "quantity"
-    t.integer "sku"
-    t.decimal "cost"
-    t.decimal "weight"
+    t.string "image"
+    t.string "price"
+    t.string "quantity"
+    t.string "sku"
+    t.string "cost"
+    t.string "weight"
     t.bigint "seller_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
