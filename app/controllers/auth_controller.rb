@@ -10,7 +10,7 @@ class AuthController < ApplicationController
       # render json: {user_id: user.id, username: user.username}
       # issue_token({user_id: user.id})
       token = JWT.encode({user_id: user.id}, 'SECRET')
-      render json: {user: user.username, user:user.id, jwt: token}
+      render json: {username: user.username , user_id: user.id, jwt: token, type:user.type, user: user.name}
     else
       render json: {message: "Wrong Password"}, status: 400
     end
