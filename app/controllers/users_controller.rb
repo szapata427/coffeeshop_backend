@@ -9,7 +9,7 @@ class UsersController < ApplicationController
      # byebug
     if @user.valid?
       token = JWT.encode({user_id: @user.id}, 'SECRET')
-      render json: {id: @user.id, username: @user.username, type: @user.type, name: @user.name, jwt: token}
+      render json: {user_id: @user.id, username: @user.username, type: @user.type, name: @user.name, jwt: token}
     else
       render json: { error: "does not work" }, status: 422
     end
