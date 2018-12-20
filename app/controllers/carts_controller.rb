@@ -14,10 +14,11 @@ class CartsController < ApplicationController
   def create
     # byebug
     cart = Cart.create(cart_params)
-    # cart.user = current_user
-# byebug
-    render json: { message: 'ok', cart: cart}
-
+    if cart.valid?
+      render json: { message: 'ok', cart: cart}
+    else
+      render json: {message: "error: could not add to cart", cart: cart}
+    end
   end
 
   private
