@@ -11,6 +11,13 @@ class CartsController < ApplicationController
     render json: {cart: cart}
   end
 
+  def update
+    # byebug
+    cart = Cart.find(params[:id])
+    cart.update(ordered: cart_params[:ordered])
+    render json: {message: "updated", cart: cart}
+  end
+
   def create
     # byebug
     cart = Cart.create(cart_params)
