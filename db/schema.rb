@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2018_12_11_190750) do
     t.string "name"
     t.string "quantity"
     t.string "total_price"
+    t.string "image"
     t.boolean "ordered", default: false
     t.bigint "user_id"
     t.bigint "product_id"
